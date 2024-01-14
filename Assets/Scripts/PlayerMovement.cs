@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField] private float speed = 1000f;
+    [SerializeField] private float speed = 10f;
     private Input inputActions;
     private Vector2 inputVector;
     private Vector2 lookVector;
@@ -25,6 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(speed * Time.deltaTime * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
+        rb.AddForce(speed * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
     }
 }
