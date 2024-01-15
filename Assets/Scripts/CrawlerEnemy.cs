@@ -21,15 +21,24 @@ public class CrawlerEnemy : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (AI.IsInRange())
         {
             AI.CheckForPlayer(Time.fixedDeltaTime);
             if (AI.IsAggroed())
+            {
                 rb.AddForce(AI.VectorTowardsPlayer() * huntingSpeed);
-            else
+            }else
                 rb.AddForce(AI.VectorSearching() * wanderSpeed);
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Scenery"))
+        {
+            AI.CollidedWithScenery(collision.gameObject);
         }
     }
 }

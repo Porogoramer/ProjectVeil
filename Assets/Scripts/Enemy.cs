@@ -6,20 +6,22 @@ public class Enemy
     private GameObject player;
     private bool aggroed;
     private float timeSinceLastSeen;
-    private Vector3 targetLocation;
+    private float aggroCooldown;
+    private Vector2 targetLocation;
 
     private readonly float BEHAVIOUR_RANGE = 50;
     private readonly float AGGRO_RANGE = 10;
     private readonly float AGGRO_RANGE_TIMEOUT = 3;
+    private readonly float AGGRO_COOLDOWN = 1;
     private readonly float AGGRO_OBSTRUCTION_TIMEOUT = 1;
-    private readonly float WANDER_DELTA = 5;
+    private readonly float WANDER_DELTA = 3;
     public Enemy(GameObject player, GameObject enemy)
     {
         this.player = player;
         this.enemy = enemy;
         aggroed = false;
         timeSinceLastSeen = 0;
-        targetLocation = enemy.transform.position;
+        SelectNewTargetLocation();
     }
 
     /**
@@ -37,6 +39,7 @@ public class Enemy
                 timeSinceLastSeen += timeSinceLastCheck;
                 if (timeSinceLastSeen > AGGRO_RANGE_TIMEOUT)
                 {
+                    aggroCooldown = AGGRO_COOLDOWN;
                     aggroed = false;
                     SelectNewTargetLocation();
                     return;
@@ -50,7 +53,11 @@ public class Enemy
             {
                 Debug.Log("Player spotted");
                 timeSinceLastSeen = 0;
-                aggroed = true;
+                aggroCooldown -= timeSinceLastCheck;
+                if(aggroCooldown <= 0)
+                {
+                    aggroed = true;
+                }
                 return;
             }
             if(aggroed && hit.collider.CompareTag("Scenery"))
@@ -59,6 +66,7 @@ public class Enemy
                 timeSinceLastSeen += timeSinceLastCheck;
                 if (timeSinceLastSeen > AGGRO_OBSTRUCTION_TIMEOUT)
                 {
+                    aggroCooldown = AGGRO_COOLDOWN;
                     aggroed = false;
                     SelectNewTargetLocation();
                 }
@@ -83,12 +91,13 @@ public class Enemy
 
     public Vector3 VectorSearching()
     {
-        if (enemy.transform.position.Equals(targetLocation))
+        float deltaX = Mathf.Abs(targetLocation.x - enemy.transform.position.x);
+        float deltaY = Mathf.Abs(targetLocation.y - enemy.transform.position.z);
+        if (deltaX < 0.1 && deltaY < 0.1)
         {
-            Debug.Log(targetLocation);
             SelectNewTargetLocation();
         }
-        return VectorTowards(targetLocation);
+        return VectorTowards(new Vector3(targetLocation.x, enemy.transform.position.y, targetLocation.y));
     }
 
     public Vector3 VectorTowardsPlayer()
@@ -96,9 +105,26 @@ public class Enemy
         return VectorTowards(player.transform.position);
     }
 
-    void SelectNewTargetLocation()
+    public void CollidedWithScenery(GameObject go)
     {
-        targetLocation = enemy.transform.position + new Vector3(Random.Range(-WANDER_DELTA, WANDER_DELTA), 0, Random.Range(-WANDER_DELTA, WANDER_DELTA));
+        if(aggroed)
+        {
+            aggroCooldown = AGGRO_COOLDOWN;
+        }
+        aggroed = false;
+
+        Vector3 vectorTowardsScenery = VectorTowards(go.transform.position) * WANDER_DELTA;
+        targetLocation = new Vector2(-vectorTowardsScenery.x, -vectorTowardsScenery.z);
+    }
+
+    /**
+     * Selects a new location for the Enemy to wander to.
+     * (Should be called gets stuck on terrain)
+     */
+    public void SelectNewTargetLocation()
+    {
+        targetLocation = new Vector2(enemy.transform.position.x, enemy.transform.position.z) + new Vector2(Random.Range(-WANDER_DELTA, WANDER_DELTA), Random.Range(-WANDER_DELTA, WANDER_DELTA));
+        Debug.Log(targetLocation);
     }
     Vector3 VectorTowards(Vector3 pos)
     {
