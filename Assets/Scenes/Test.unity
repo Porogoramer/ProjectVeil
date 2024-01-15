@@ -1224,6 +1224,7 @@ GameObject:
   - component: {fileID: 1232498621}
   - component: {fileID: 1232498622}
   - component: {fileID: 1232498623}
+  - component: {fileID: 1232498624}
   m_Layer: 0
   m_Name: Kyle
   m_TagString: Untagged
@@ -1359,7 +1360,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f235259f021634e95163201778e80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
+  speed: 20
+--- !u!114 &1232498624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232498618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c50b783cf365f44b568bc47120540e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!1 &1253666723
 GameObject:
   m_ObjectHideFlags: 0

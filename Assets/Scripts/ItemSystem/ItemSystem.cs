@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /**
@@ -11,19 +12,20 @@ using UnityEngine;
  */
 public class ItemSystem
 {
-    private GameObject player;
+    private PlayerInfo stats;
     private IList<IItem> items;
     private IList<IItem> conditionnalItems;
     
-    public ItemSystem(GameObject player)
+    public ItemSystem(PlayerInfo stats)
     {
-        this.player = player;
+        this.stats = stats;
         items = new List<IItem>();
     }
 
     /**
      * <summary>
-     * Loops through all conditional stat items apply 
+     * Loops through all conditional stat items applying those
+     * which are useable
      * </summary>
      */
     public void CheckForConditionalStatItems()
@@ -32,38 +34,58 @@ public class ItemSystem
         {
             if (item.IsUseable())
             {
-                item.Use(player);
+                item.Use();
             }
         }
+    }
+
+    public IList<IItem> GetInventory()
+    {
+        return items.ToList();
     }
 
     public void UseConsumable(int i)
     {
         if (items[i].IsConsumable() && items[i].IsUseable())
-            items[i].Use(player);
+            items[i].Use();
     }
 
     public IItem RemoveItem(int i)
     {
         IItem removed = items[i];
-        items.RemoveAt(i);
-        if (conditionnalItems.Contains(removed))
+        if (items[i].Quantity > 1)
         {
-            conditionnalItems.Remove(removed);
+            removed.Drop();
+        }
+        else
+        {
+            items.RemoveAt(i);
+            if (conditionnalItems.Contains(removed))
+            {
+                conditionnalItems.Remove(removed);
+            }
         }
         return removed;
     }
 
     public void AddItem(IItem item)
     {
-        items.Add(item);
+        int indexOfItem = items.IndexOf(item);
+        if (indexOfItem == -1)
+        {
+            items[indexOfItem].PickUp();
+        }
+        else
+        {
+            items.Add(item);
+        }
         if (item is ConditionalStatItem)
         {
             conditionnalItems.Add(item);
         }
         if (!item.IsConsumable() && item.IsUseable())
         {
-            item.Use(player);
+            item.Use();
         }
     }
 }
