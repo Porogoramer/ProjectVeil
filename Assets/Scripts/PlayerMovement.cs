@@ -27,6 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(playerInfo.GetSpeed() * Time.deltaTime * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
+        rb.AddForce(playerInfo.GetSpeed() * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
     }
 }
