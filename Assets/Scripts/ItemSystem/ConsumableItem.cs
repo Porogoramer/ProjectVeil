@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ConsumableItem : Item
 {
-    public ConsumableItem(string name, string description, PlayerInfo stats) : base(name, description, stats) { }
+    public ConsumableItem(string name, string description) : base(name, description) { }
     public ConsumableItem(ConsumableItem other) : base(other) { }
     /**
      * <remarks>

@@ -25,12 +25,17 @@ public class CrawlerEnemy : MonoBehaviour
     {
         if (AI.IsInRange())
         {
+            gameObject.tag = "LoadedEnemy";
             AI.CheckForPlayer(Time.fixedDeltaTime);
             if (AI.IsAggroed())
             {
                 rb.AddForce(AI.VectorTowardsPlayer() * huntingSpeed);
             }else
                 rb.AddForce(AI.VectorSearching() * wanderSpeed);
+        }
+        else
+        {
+            gameObject.tag = "UnloadedEnemy";
         }
     }
 

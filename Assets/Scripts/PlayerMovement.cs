@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         playerInfo = GetComponent<PlayerInfo>();
-        Debug.Log(playerInfo.GetSpeed());
         rb = GetComponent<Rigidbody>();
         inputActions = new Input();
         inputActions.Player.Enable();

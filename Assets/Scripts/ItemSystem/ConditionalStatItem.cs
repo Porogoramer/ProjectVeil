@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ConditionalStatItem : StatItem
 {
-    public ConditionalStatItem(string name, string description, PlayerInfo stats) : base(name, description, stats){}
+    public ConditionalStatItem(string name, string description) : base(name, description) {}
     public ConditionalStatItem(ConditionalStatItem other) : base(other) { }
     /**
      * <remarks>
@@ -12,7 +12,7 @@ public abstract class ConditionalStatItem : StatItem
      * and apply any stat changes
      * </remarks>
      */
-    public override abstract void Use();
+    public override abstract void Use(PlayerInfo stats);
 
     /**
      * <remarks>
@@ -20,7 +20,7 @@ public abstract class ConditionalStatItem : StatItem
      * It should also deactivate the item if the conditions are no longer met
      * </remarks>
      */
-    public new abstract bool IsUseable();
+    public new abstract bool IsUseable(PlayerInfo stats);
 
     /**
      * <remarks>

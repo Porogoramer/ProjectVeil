@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class StatItem : Item
 {
-    public StatItem(string name, string desc, PlayerInfo stats) : base(name, desc, stats) { }
+    public StatItem(string name, string desc) : base(name, desc) { }
     public StatItem(StatItem item) : base(item) { }
 
     /**
@@ -22,7 +22,7 @@ public abstract class StatItem : Item
      * A stat item that is not always useable should extend ConditionnalStatItem
      * </remarks>
      */
-    public override bool IsUseable()
+    public override bool IsUseable(PlayerInfo stats)
     {
         return true;
     }

@@ -20,6 +20,7 @@ public class ItemSystem
     {
         this.stats = stats;
         items = new List<IItem>();
+        conditionnalItems = new List<IItem>();
     }
 
     /**
@@ -32,22 +33,22 @@ public class ItemSystem
     {
         foreach (ConditionalStatItem item in conditionnalItems)
         {
-            if (item.IsUseable())
+            if (item.IsUseable(stats))
             {
-                item.Use();
+                item.Use(stats);
             }
         }
     }
 
     public IList<IItem> GetInventory()
     {
-        return items.ToList();
+        return conditionnalItems.ToList();
     }
 
     public void UseConsumable(int i)
     {
-        if (items[i].IsConsumable() && items[i].IsUseable())
-            items[i].Use();
+        if (items[i].IsConsumable() && items[i].IsUseable(stats))
+            items[i].Use(stats);
     }
 
     public IItem RemoveItem(int i)
@@ -73,19 +74,21 @@ public class ItemSystem
         int indexOfItem = items.IndexOf(item);
         if (indexOfItem == -1)
         {
-            items[indexOfItem].PickUp();
+            items.Add(item);
         }
         else
         {
-            items.Add(item);
+            items[indexOfItem].PickUp();
         }
+
         if (item is ConditionalStatItem)
         {
-            conditionnalItems.Add(item);
+            if(indexOfItem == -1)
+                conditionnalItems.Add(item);
         }
-        if (!item.IsConsumable() && item.IsUseable())
+        else if (!item.IsConsumable())
         {
-            item.Use();
+            item.Use(stats);
         }
     }
 }
