@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,12 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         inputActions = new Input();
         inputActions.Player.Enable();
+        inputActions.Player.Use.performed += UseConsumable;
+    }
+
+    public void UseConsumable(InputAction.CallbackContext context)
+    {
+        playerInfo.UseConsumable(Int32.Parse(context.control.name) - 1);
     }
 
     void Update()

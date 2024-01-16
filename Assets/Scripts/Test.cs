@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Test : MonoBehaviour
 {
-    /*private void OnTriggerEnter(Collider other)
-    {
-        other.gameObject.GetComponent<PlayerInfo>().AddItem(new Boots());
-    }*/
     private void Start()
     {
-        Debug.Log(GameObject.FindGameObjectWithTag("Player"));
+        // Example items, SpeedPotion is used by hitting 'F'.
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new SpeedPotion());
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new SpeedPotion());
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new SpeedPotion());
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Boots());
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Adrenaline());
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Adrenaline());
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Adrenaline());
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Adrenaline());
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().AddItem(new Adrenaline());
-        Debug.Log(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().GetInventory().Count);
+        IList<IItem> items = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>().GetInventory();
+        foreach(IItem item in items)
+        {
+            Debug.Log(item.Name);
+        }
     }
 }

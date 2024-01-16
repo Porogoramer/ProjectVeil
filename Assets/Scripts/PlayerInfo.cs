@@ -23,6 +23,11 @@ public class PlayerInfo : MonoBehaviour
         return itemSystem.GetInventory();
     }
 
+    public void UseConsumable(int i)
+    {
+        itemSystem.UseConsumable(i);
+    }
+
     public void AddItem(IItem item)
     {
         itemSystem.AddItem(item);

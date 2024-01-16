@@ -15,12 +15,14 @@ public class ItemSystem
     private PlayerInfo stats;
     private IList<IItem> items;
     private IList<IItem> conditionnalItems;
+    private IList<IItem> consumableItems;
     
     public ItemSystem(PlayerInfo stats)
     {
         this.stats = stats;
         items = new List<IItem>();
         conditionnalItems = new List<IItem>();
+        consumableItems = new List<IItem>();
     }
 
     /**
@@ -42,13 +44,16 @@ public class ItemSystem
 
     public IList<IItem> GetInventory()
     {
-        return conditionnalItems.ToList();
+        return items.ToList();
     }
 
     public void UseConsumable(int i)
     {
-        if (items[i].IsConsumable() && items[i].IsUseable(stats))
-            items[i].Use(stats);
+        if (consumableItems[i].IsUseable(stats))
+        {
+            consumableItems[i].Use(stats);
+            RemoveItem(consumableItems.IndexOf(consumableItems[i]));
+        }
     }
 
     public IItem RemoveItem(int i)
@@ -75,18 +80,17 @@ public class ItemSystem
         if (indexOfItem == -1)
         {
             items.Add(item);
+            if (item is ConditionalStatItem)
+                conditionnalItems.Add(item);
+            else if (item.IsConsumable())
+                consumableItems.Add(item);
         }
         else
         {
             items[indexOfItem].PickUp();
         }
 
-        if (item is ConditionalStatItem)
-        {
-            if(indexOfItem == -1)
-                conditionnalItems.Add(item);
-        }
-        else if (!item.IsConsumable())
+        if (!item.IsConsumable())
         {
             item.Use(stats);
         }
