@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Scenery
+  - LoadedEnemy
+  - UnloadedEnemy
   layers:
   - Default
   - TransparentFX

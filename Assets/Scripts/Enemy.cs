@@ -51,7 +51,6 @@ public class Enemy
             Debug.DrawRay(enemy.transform.position, VectorTowardsPlayer() * hit.distance, Color.red);
             if(hit.collider.CompareTag("Player"))
             {
-                Debug.Log("Player spotted");
                 timeSinceLastSeen = 0;
                 aggroCooldown -= timeSinceLastCheck;
                 if(aggroCooldown <= 0)
@@ -62,7 +61,6 @@ public class Enemy
             }
             if(aggroed && hit.collider.CompareTag("Scenery"))
             {
-                Debug.Log("Aggroed - Player obstructed");
                 timeSinceLastSeen += timeSinceLastCheck;
                 if (timeSinceLastSeen > AGGRO_OBSTRUCTION_TIMEOUT)
                 {
@@ -124,7 +122,6 @@ public class Enemy
     public void SelectNewTargetLocation()
     {
         targetLocation = new Vector2(enemy.transform.position.x, enemy.transform.position.z) + new Vector2(Random.Range(-WANDER_DELTA, WANDER_DELTA), Random.Range(-WANDER_DELTA, WANDER_DELTA));
-        Debug.Log(targetLocation);
     }
     Vector3 VectorTowards(Vector3 pos)
     {

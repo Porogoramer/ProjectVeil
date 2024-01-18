@@ -1,19 +1,27 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField] private float speed = 10f;
     private Input inputActions;
     private Vector2 inputVector;
     private Vector2 lookVector;
+    private PlayerInfo playerInfo;
 
     void Start()
     {
+        playerInfo = GetComponent<PlayerInfo>();
         rb = GetComponent<Rigidbody>();
         inputActions = new Input();
         inputActions.Player.Enable();
+        inputActions.Player.Use.performed += UseConsumable;
+    }
+
+    public void UseConsumable(InputAction.CallbackContext context)
+    {
+        playerInfo.UseConsumable(Int32.Parse(context.control.name) - 1);
     }
 
     void Update()
@@ -25,6 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(speed * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
+        rb.AddForce(playerInfo.GetSpeed() * (Quaternion.AngleAxis(rb.rotation.eulerAngles.y, Vector3.up) * new Vector3(inputVector.x, 0, inputVector.y)).normalized);
     }
 }

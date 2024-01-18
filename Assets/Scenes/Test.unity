@@ -467,6 +467,8 @@ GameObject:
   - component: {fileID: 356245698}
   - component: {fileID: 356245697}
   - component: {fileID: 356245696}
+  - component: {fileID: 356245700}
+  - component: {fileID: 356245699}
   m_Layer: 0
   m_Name: chibi yuri (5)
   m_TagString: Untagged
@@ -554,6 +556,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &356245699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356245695}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18.44, y: 18.44, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &356245700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356245695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490cdfacaa6babf459649af10c9cb474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356942368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1452,7 +1487,7 @@ GameObject:
   - component: {fileID: 983750458}
   m_Layer: 6
   m_Name: CrawlerEnemy (2)
-  m_TagString: Untagged
+  m_TagString: LoadedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1584,6 +1619,7 @@ GameObject:
   - component: {fileID: 1232498621}
   - component: {fileID: 1232498622}
   - component: {fileID: 1232498623}
+  - component: {fileID: 1232498624}
   m_Layer: 0
   m_Name: Kyle
   m_TagString: Player
@@ -1719,7 +1755,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f235259f021634e95163201778e80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+--- !u!114 &1232498624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232498618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c50b783cf365f44b568bc47120540e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!1 &1253666723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,7 +1877,7 @@ GameObject:
   - component: {fileID: 1281189920}
   m_Layer: 6
   m_Name: CrawlerEnemy (1)
-  m_TagString: Untagged
+  m_TagString: LoadedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2359,7 +2407,7 @@ GameObject:
   - component: {fileID: 1866673584}
   m_Layer: 6
   m_Name: CrawlerEnemy
-  m_TagString: Untagged
+  m_TagString: LoadedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2719,7 +2767,7 @@ GameObject:
   - component: {fileID: 2113956986}
   m_Layer: 6
   m_Name: CrawlerEnemy (3)
-  m_TagString: Untagged
+  m_TagString: LoadedEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
