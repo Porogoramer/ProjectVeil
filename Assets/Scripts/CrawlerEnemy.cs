@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CrawlerEnemy : MonoBehaviour
 {
@@ -25,13 +26,21 @@ public class CrawlerEnemy : MonoBehaviour
     {
         if (AI.IsInRange())
         {
+            Vector3 moveDirection;
             gameObject.tag = "LoadedEnemy";
             AI.CheckForPlayer(Time.fixedDeltaTime);
             if (AI.IsAggroed())
             {
-                rb.AddForce(AI.VectorTowardsPlayer() * huntingSpeed);
-            }else
-                rb.AddForce(AI.VectorSearching() * wanderSpeed);
+                moveDirection = AI.VectorTowardsPlayer();
+                transform.rotation = AI.RotationTowardsDestination(moveDirection);
+                rb.AddForce(moveDirection * huntingSpeed);
+            }
+            else
+            {
+                moveDirection = AI.VectorSearching();
+                transform.rotation = AI.RotationTowardsDestination(moveDirection);
+                rb.AddForce(moveDirection * wanderSpeed);
+            }
         }
         else
         {

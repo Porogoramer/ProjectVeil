@@ -98,6 +98,13 @@ public class Enemy
         return VectorTowards(new Vector3(targetLocation.x, enemy.transform.position.y, targetLocation.y));
     }
 
+    // Call this at the same time as moving
+    public Quaternion RotationTowardsDestination(Vector3 destination)
+    {
+        destination.y = 0f;
+        return Quaternion.Euler(0f, Vector3.Angle(Vector3.forward, destination), 0f);
+    }
+
     public Vector3 VectorTowardsPlayer()
     {
         return VectorTowards(player.transform.position);
