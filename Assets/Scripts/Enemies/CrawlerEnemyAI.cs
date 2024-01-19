@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy
+public class CrawlerEnemyAI
 {
     private GameObject enemy;
     private GameObject player;
@@ -15,7 +15,7 @@ public class Enemy
     private readonly float AGGRO_COOLDOWN = 1;
     private readonly float AGGRO_OBSTRUCTION_TIMEOUT = 1;
     private readonly float WANDER_DELTA = 3;
-    public Enemy(GameObject player, GameObject enemy)
+    public CrawlerEnemyAI(GameObject player, GameObject enemy)
     {
         this.player = player;
         this.enemy = enemy;
