@@ -9,12 +9,12 @@ public class CrawlerEnemyAI
     private float aggroCooldown;
     private Vector2 targetLocation;
 
-    private readonly float BEHAVIOUR_RANGE = 50;
-    private readonly float AGGRO_RANGE = 10;
-    private readonly float AGGRO_RANGE_TIMEOUT = 3;
-    private readonly float AGGRO_COOLDOWN = 1;
-    private readonly float AGGRO_OBSTRUCTION_TIMEOUT = 1;
-    private readonly float WANDER_DELTA = 3;
+    protected readonly float BEHAVIOUR_RANGE = 50;
+    protected readonly float AGGRO_RANGE = 10;
+    protected readonly float AGGRO_RANGE_TIMEOUT = 3;
+    protected readonly float AGGRO_COOLDOWN = 1;
+    protected readonly float AGGRO_OBSTRUCTION_TIMEOUT = 1;
+    protected readonly float WANDER_DELTA = 3;
     public CrawlerEnemyAI(GameObject player, GameObject enemy)
     {
         this.player = player;
@@ -64,6 +64,7 @@ public class CrawlerEnemyAI
                 timeSinceLastSeen += timeSinceLastCheck;
                 if (timeSinceLastSeen > AGGRO_OBSTRUCTION_TIMEOUT)
                 {
+                    Debug.Log("Unstucking");
                     aggroCooldown = AGGRO_COOLDOWN;
                     aggroed = false;
                     SelectNewTargetLocation();

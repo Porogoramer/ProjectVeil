@@ -6,20 +6,14 @@ public class CrawlerEnemy : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] float huntingSpeed = 20f;
     [SerializeField] float wanderSpeed = 15f;
-    private Enemy AI;
+    private CrawlerEnemyAI AI;
     private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        AI = new Enemy(player, gameObject);
+        AI = new CrawlerEnemyAI(player, gameObject);
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void FixedUpdate()

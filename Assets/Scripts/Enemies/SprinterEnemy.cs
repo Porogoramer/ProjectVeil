@@ -3,7 +3,7 @@ using UnityEngine;
 public class SprinterEnemy : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] float huntingSpeed = 20f;
+    [SerializeField] float huntingSpeed = 30f;
     [SerializeField] float wanderSpeed = 15f;
     private SprinterEnemyAI AI;
     private Rigidbody rb;
@@ -13,12 +13,6 @@ public class SprinterEnemy : MonoBehaviour
     {
         AI = new SprinterEnemyAI(player, gameObject);
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void FixedUpdate()
@@ -31,12 +25,11 @@ public class SprinterEnemy : MonoBehaviour
             if (AI.IsAggroed())
             {
                 moveDirection = AI.VectorTowardsPlayer();
-                if(AI.IsCharged(Time.fixedDeltaTime) )
+                transform.rotation = AI.RotationTowardsDestination(moveDirection);   
+                if(AI.IsCharged(Time.fixedDeltaTime))
                 {
-
+                    rb.AddForce(moveDirection * huntingSpeed);
                 }
-                transform.rotation = AI.RotationTowardsDestination(moveDirection);
-                rb.AddForce(moveDirection * huntingSpeed);
             }
             else
             {
